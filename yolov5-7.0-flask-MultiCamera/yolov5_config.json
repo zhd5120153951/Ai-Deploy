@@ -1,0 +1,12 @@
+{
+	"source": "streams.txt",
+	"weights": "weights/yolov5m6.pt",
+	"device": "cpu",
+	"dnn": false,
+	"data": "data/coco128.yaml",
+	"imgsz": 640,
+	"stride": 32,
+	"conf_thres": 0.35,
+	"iou_thres": 0.45,
+	"augment": false
+}
