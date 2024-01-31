@@ -1,4 +1,14 @@
-# coding:utf-8
+'''
+@FileName   :camera.py
+@Description:单独从utils/dataloaders.py中提取出数据加载--精简后的
+@Date       :2024/01/30 08:46:19
+@Author     :daito
+@Website    :Https://github.com/zhd5120153951
+@Copyright  :daito
+@License    :None
+@version    :1.0
+@Email      :2462491568@qq.com
+'''
 import os
 import cv2
 import glob
@@ -7,7 +17,7 @@ import numpy as np
 from pathlib import Path
 from utils.augmentations import letterbox
 from threading import Thread
-from utils.general import clean_str
+from utils.general import clean_str, is_colab, is_kaggle, LOGGER
 
 
 img_formats = ['bmp', 'jpg', 'jpeg', 'png', 'tif',
@@ -156,10 +166,13 @@ class LoadWebcam:  # for inference
 
 
 class LoadStreams:  # multiple IP or RTSP cameras
-    def __init__(self, sources='streams.txt', img_size=640, stride=32):
+    # YOLOv5 streamloader, i.e. `python detect.py --source 'rtsp://example.com/media.mp4'  # RTSP, RTMP, HTTP streams`
+    def __init__(self, sources='streams.txt', img_size=640, stride=32, auto=True, transforms=None, vid_stride=1):
+        # torch.backends.cudnn.benchmark=True#原始写法
         self.mode = 'stream'
         self.img_size = img_size
         self.stride = stride
+        self.vid_stride = vid_stride  # 跳帧间隔
 
         if os.path.isfile(sources):
             with open(sources, 'r') as f:
@@ -169,43 +182,65 @@ class LoadStreams:  # multiple IP or RTSP cameras
             sources = [sources]
 
         n = len(sources)
-        self.imgs = [None] * n
-        # clean source names for later
+        self.imgs = [None] * n  # 读取帧
+        self.threads = [None]*n  # 读取线程
+        # 清理流地址中的非法字符
         self.sources = [clean_str(x) for x in sources]
         for i, s in enumerate(sources):
             # Start the thread to read frames from the video stream
             print(f'{i + 1}/{n}: {s}... ', end='')
-            cap = cv2.VideoCapture(eval(s) if s.isnumeric() else s)
+            s = eval(s) if s.isnumeric() else s  # '0'--本地摄像头
+            if s == 0:
+                assert not is_colab(), '--source 0 webcam unsupported on Colab. Rerun command in a local environment.'
+                assert not is_kaggle(
+                ), '--source 0 webcam unsupported on Kaggle. Rerun command in a local environment.'
+            cap = cv2.VideoCapture(s)
             assert cap.isOpened(), f'Failed to open {s}'
+            # 获取流视频的宽高信息
             w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
             h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-            fps = cap.get(cv2.CAP_PROP_FPS) % 100
-            _, self.imgs[i] = cap.read()  # guarantee first frame
-            thread = Thread(target=self.update, args=([i, cap]), daemon=True)
-            print(f' success ({w}x{h} at {fps:.2f} FPS).')
-            thread.start()
-        print('')  # newline
+            fps = cap.get(cv2.CAP_PROP_FPS) % 100  # 控制在100以内,原始的不是这样写的
 
+            _, self.imgs[i] = cap.read()  # guarantee first frame
+            self.threads[i] = Thread(target=self.update, args=(
+                [i, cap, s]), daemon=True)
+            # print(f' success ({w}x{h} at {fps:.2f} FPS).')#zhd
+            LOGGER.info(f" success ({w}*{h} at {fps:.2f} FPS).")  # origin
+            self.threads[i].start()
+        # print('')  # newline zhd
+        LOGGER.info('')  # newline origin
         # check for common shapes
-        s = np.stack([letterbox(x, self.img_size, stride=self.stride)[
-                     0].shape for x in self.imgs], 0)  # shapes
+        s = np.stack([letterbox(x, self.img_size, stride=self.stride, auto=auto)[
+                     0].shape for x in self.imgs], 0)  # shapes--origin no 0
         # rect inference if all shapes equal
         self.rect = np.unique(s, axis=0).shape[0] == 1
+        self.auto = auto and self.rect
+        self.transforms = transforms  # 可选
         if not self.rect:
-            print('WARNING: Different stream shapes detected. For optimal performance supply similarly-shaped streams.')
+            # print('WARNING: Different stream shapes detected. For optimal performance supply similarly-shaped streams.')#zhd
+            LOGGER.warn(
+                'WARNING: Different stream shapes detected. For optimal performance supply similarly-shaped streams.')  # origin
 
-    def update(self, index, cap):
+    def update(self, index, cap, stream):
         # Read next stream frame in a daemon thread
-        n = 0
+        n = 0  # frame number
         while cap.isOpened():
             n += 1
-            # _, self.imgs[index] = cap.read()
-            cap.grab()
-            if n == 4:  # read every 4th frame
+            cap.grab()  # read()=grab() followed by retrieve()
+            if n % self.vid_stride == 0:  # read every vid_stride frame
                 success, im = cap.retrieve()
-                self.imgs[index] = im if success else self.imgs[index] * 0
+                if success:
+                    self.imgs[index] = im
+                else:
+                    LOGGER.warn(
+                        'WARNING ⚠️ Video stream unresponsive, please check your IP camera connection.')
+                    self.imgs[index] = np.zeros_like(
+                        self.imgs[index])  # origin
+                    # self.imgs[index] = self.imgs[index] * 0#zhd
+                    # re-open stream if signal was lost
+                    cap.open(stream)
                 n = 0
-            time.sleep(0.01)  # wait time
+            time.sleep(0.0)  # wait time zhd-0.01;origin-0.0
 
     def __iter__(self):
         self.count = -1
@@ -213,19 +248,35 @@ class LoadStreams:  # multiple IP or RTSP cameras
 
     def __next__(self):
         self.count += 1
-        img0 = self.imgs.copy()
-        if cv2.waitKey(1) == ord('q'):  # q to quit
+        # origin
+        if not all(x.is_alive() for x in self.threads) or cv2.waitKey(1) == ord('q'):  # q to quit
             cv2.destroyAllWindows()
             raise StopIteration
+        # zhd
+        # if cv2.waitKey(1) == ord('q'):  # q to quit
+        #     cv2.destroyAllWindows()
+        #     raise StopIteration
 
-        # Letterbox
+        # origin
+        img0 = self.imgs.copy()
+        if self.transforms:  # 默认不开启的
+            img = np.stack([self.transforms(x) for x in img0])
+        else:
+            img = np.stack([letterbox(x, self.img_size, stride=self.stride, auto=self.auto)[
+                           0] for x in img0])  # resize
+            # BGR to RGB ,BHWC to BCHW
+            img = img[..., ::-1].transpose((0, 3, 1, 2))
+            img = np.ascontiguousarray(img)  # contiguous
+        return self.sources, img, img0, None, ''
+
+        # zhd
+        # Letterbox-1
         img = [letterbox(x, self.img_size, auto=self.rect,
                          stride=self.stride)[0] for x in img0]
-
-        # Stack
+        # Stack-2
         img = np.stack(img, 0)
 
-        # Convert
+        # Convert-3
         # BGR to RGB, to bsx3x416x416
         img = img[:, :, :, ::-1].transpose(0, 3, 1, 2)
         img = np.ascontiguousarray(img)
@@ -233,4 +284,6 @@ class LoadStreams:  # multiple IP or RTSP cameras
         return self.sources, img, img0, None
 
     def __len__(self):
+        return len(self.sources)  # origin
+        # zhd
         return 0  # 1E12 frames = 32 streams at 30 FPS for 30 years

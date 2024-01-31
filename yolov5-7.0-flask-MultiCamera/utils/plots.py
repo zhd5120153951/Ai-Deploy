@@ -575,7 +575,7 @@ def save_one_box(xyxy, im, file=Path('im.jpg'), gain=1.02, pad=10, square=False,
     return crop, xyxy
 
 
-# 截取检测部分--不保存
+# 截取检测部分--不保存--zhd
 def crop_one_box(xyxy, im, gain=1.02, pad=10, square=False, BGR=False):
     xyxy = torch.tensor(xyxy).view(-1, 4)
     b = xyxy2xywh(xyxy)  # boxes
@@ -588,7 +588,7 @@ def crop_one_box(xyxy, im, gain=1.02, pad=10, square=False, BGR=False):
     return crop, xyxy
 
 
-# 保存二次确认后的气体
+# 保存二次确认后的气体--zhd
 def save_gas(img, file=Path('im.jpg'), save=True):
     if save:
         file.parent.mkdir(parents=True, exist_ok=True)  # make directory

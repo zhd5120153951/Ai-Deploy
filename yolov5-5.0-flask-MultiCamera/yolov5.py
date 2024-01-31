@@ -1,4 +1,15 @@
-# coding:utf-8
+'''
+@FileName   :yolov5.py
+@Description:v6.0版本--比较7.0把scale_coords()替换为scale_boxes();修改model.warmup,取消半精度
+@Date       :2024/01/30 13:25:05
+@Author     :daito
+@Website    :Https://github.com/zhd5120153951
+@Copyright  :daito
+@License    :None
+@version    :1.0
+@Email      :2462491568@qq.com
+'''
+
 import cv2
 import json
 import time

@@ -1,0 +1,1 @@
+这是yolov5 5.0版本的flask实时服务部署--yolov5s.pt不同于yolov5s6.pt;这两个是不同深度训练的结果6的要略优

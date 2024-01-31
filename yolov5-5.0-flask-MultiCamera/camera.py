@@ -10,8 +10,10 @@ from threading import Thread
 from utils.general import clean_str
 
 
-img_formats = ['bmp', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'dng', 'webp']  # acceptable image suffixes
-vid_formats = ['mov', 'avi', 'mp4', 'mpg', 'mpeg', 'm4v', 'wmv', 'mkv']  # acceptable video suffixes
+img_formats = ['bmp', 'jpg', 'jpeg', 'png', 'tif',
+               'tiff', 'dng', 'webp']  # acceptable image suffixes
+vid_formats = ['mov', 'avi', 'mp4', 'mpg', 'mpeg',
+               'm4v', 'wmv', 'mkv']  # acceptable video suffixes
 
 
 class LoadImages:  # for inference
@@ -67,7 +69,8 @@ class LoadImages:  # for inference
                     ret_val, img0 = self.cap.read()
 
             self.frame += 1
-            print(f'video {self.count + 1}/{self.nf} ({self.frame}/{self.nframes}) {path}: ', end='')
+            print(
+                f'video {self.count + 1}/{self.nf} ({self.frame}/{self.nframes}) {path}: ', end='')
 
         else:
             # Read image
@@ -160,13 +163,15 @@ class LoadStreams:  # multiple IP or RTSP cameras
 
         if os.path.isfile(sources):
             with open(sources, 'r') as f:
-                sources = [x.strip() for x in f.read().strip().splitlines() if len(x.strip())]
+                sources = [x.strip() for x in f.read(
+                ).strip().splitlines() if len(x.strip())]
         else:
             sources = [sources]
 
         n = len(sources)
         self.imgs = [None] * n
-        self.sources = [clean_str(x) for x in sources]  # clean source names for later
+        # clean source names for later
+        self.sources = [clean_str(x) for x in sources]
         for i, s in enumerate(sources):
             # Start the thread to read frames from the video stream
             print(f'{i + 1}/{n}: {s}... ', end='')
@@ -182,8 +187,10 @@ class LoadStreams:  # multiple IP or RTSP cameras
         print('')  # newline
 
         # check for common shapes
-        s = np.stack([letterbox(x, self.img_size, stride=self.stride)[0].shape for x in self.imgs], 0)  # shapes
-        self.rect = np.unique(s, axis=0).shape[0] == 1  # rect inference if all shapes equal
+        s = np.stack([letterbox(x, self.img_size, stride=self.stride)[
+                     0].shape for x in self.imgs], 0)  # shapes
+        # rect inference if all shapes equal
+        self.rect = np.unique(s, axis=0).shape[0] == 1
         if not self.rect:
             print('WARNING: Different stream shapes detected. For optimal performance supply similarly-shaped streams.')
 
@@ -212,13 +219,15 @@ class LoadStreams:  # multiple IP or RTSP cameras
             raise StopIteration
 
         # Letterbox
-        img = [letterbox(x, self.img_size, auto=self.rect, stride=self.stride)[0] for x in img0]
+        img = [letterbox(x, self.img_size, auto=self.rect,
+                         stride=self.stride)[0] for x in img0]
 
         # Stack
         img = np.stack(img, 0)
 
         # Convert
-        img = img[:, :, :, ::-1].transpose(0, 3, 1, 2)  # BGR to RGB, to bsx3x416x416
+        # BGR to RGB, to bsx3x416x416
+        img = img[:, :, :, ::-1].transpose(0, 3, 1, 2)
         img = np.ascontiguousarray(img)
 
         return self.sources, img, img0, None
