@@ -1,4 +1,14 @@
-# import the necessary packages
+'''
+@FileName   :web_main.py
+@Description:7.0的web实时服务部署并路由到web
+@Date       :2024/02/01 08:41:53
+@Author     :daito
+@Website    :Https://github.com/zhd5120153951
+@Copyright  :daito
+@License    :None
+@version    :1.0
+@Email      :2462491568@qq.com
+'''
 from yolov5 import YOLONet
 from camera import LoadStreams, LoadImages
 from utils.general import non_max_suppression, scale_boxes, check_imshow
@@ -100,5 +110,4 @@ def video_feed(feed_type):
 
 
 if __name__ == '__main__':
-
     app.run(host='0.0.0.0', port="5000", threaded=True)
