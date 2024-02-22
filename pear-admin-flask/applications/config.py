@@ -40,13 +40,13 @@ class BaseConfig:
 
     # mysql 配置
     MYSQL_USERNAME = "root"
-    MYSQL_PASSWORD = "root"
+    MYSQL_PASSWORD = "ZHDzhd2231"
     MYSQL_HOST = "127.0.0.1"
     MYSQL_PORT = 3306
     MYSQL_DATABASE = "PearAdminFlask"
 
     # 数据库的配置信息
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///../pear.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../pear.db'  # 本次采用sqlite
     # SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{MYSQL_USERNAME}:{urlquote(MYSQL_PASSWORD)}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}?charset=utf8mb4"
 
     # 默认日志等级
@@ -59,7 +59,7 @@ class BaseConfig:
     MAIL_USE_SSL = True
     MAIL_PORT = 465
     MAIL_USERNAME = '2462491568@qq.com'
-    MAIL_PASSWORD = 'XXXXX'  # 生成的授权码
+    MAIL_PASSWORD = 'XXXXX'  # 生成的授权码--qq邮箱网页上获取
     MAIL_DEFAULT_SENDER = MAIL_USERNAME
 
     # 插件配置，填写插件的文件名名称，默认不启用插件。

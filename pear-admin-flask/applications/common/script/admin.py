@@ -22,13 +22,13 @@ userdata = [
     ),
     User(
         id=2,
-        username='test',
+        username='daito',
         password_hash='pbkdf2:sha256:150000$cRS8bYNh$adb57e64d929863cf159f924f74d0634f1fecc46dba749f1bfaca03da6d2e3ac',
         create_at=now_time,
         enable=1,
-        realname='测试',
-        remark='要是不能把握时机，就要终身蹭蹬，一事无成！',
-        avatar='/static/system/admin/images/avatar.jpg',
+        realname='超级管理员',
+        remark='做自己认为对的事,并坚持终身.',
+        avatar='/static/system/admin/images/act.jpg',
         dept_id=1,
     ),
     User(
@@ -549,7 +549,8 @@ def add_user_role():
 
 
 def add_role_power():
-    admin_powers = Power.query.filter(Power.id.in_([1, 3, 4, 9, 12, 13, 17, 18, 44, 48])).all()
+    admin_powers = Power.query.filter(Power.id.in_(
+        [1, 3, 4, 9, 12, 13, 17, 18, 44, 48])).all()
     admin_user = Role.query.filter_by(id=2).first()
     for i in admin_powers:
         admin_user.power.append(i)
