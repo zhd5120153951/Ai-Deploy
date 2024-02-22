@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+package General;
+
+//定义收发信息类型
+
+message rsMessage {
+    map<string, bytes> param = 1;
+}
+
+service interaction {
+    //调用此函数来传输数据
+    rpc dispatch (rsMessage) returns (rsMessage);
+    //测试通信状态
+    rpc ping (google.protobuf.Empty) returns (google.protobuf.Empty);
+}
