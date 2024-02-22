@@ -1,0 +1,156 @@
+[2024/02/22 11:32:39]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:39]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:40]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:41]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:41]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:42]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:42]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:43]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:43]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:44]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:44]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:45]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:45]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:46]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:46]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:47]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:47]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:48]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:48]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:49]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:49]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:50]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:50]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:51]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:51]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:52]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:52]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:53]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:54]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:54]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:54]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:55]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:55]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:56]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:56]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:57]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:57]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:58]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:58]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:59]
+people:0, cars:0, motors:0;
+[2024/02/22 11:32:59]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:00]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:00]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:01]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:01]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:02]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:02]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:03]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:03]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:04]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:04]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:05]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:05]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:06]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:06]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:07]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:07]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:08]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:08]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:09]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:09]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:10]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:10]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:11]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:11]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:12]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:12]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:13]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:13]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:14]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:15]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:15]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:16]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:16]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:17]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:17]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:18]
+people:0, cars:0, motors:0;
+[2024/02/22 11:33:18]
+people:0, cars:0, motors:0;

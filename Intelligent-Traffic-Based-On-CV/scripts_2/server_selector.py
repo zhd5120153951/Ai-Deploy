@@ -134,7 +134,8 @@ class ServerAchieve:
 
     def dealVideo(self):
         # 只有客户端选择check box时，才可以进行推流．（在进入这个函数之前）
-        rtmpUrl = "rtmp://101.132.236.124/live/stream"  # 推流地址
+        # rtmpUrl = "rtmp://101.132.236.124/live/stream"  # 推流地址
+        rtmpUrl = "rtsp://192.168.23.15/live/stream"
 
         # Get video information
         fps = int(self.cap.get(cv2.CAP_PROP_FPS))
