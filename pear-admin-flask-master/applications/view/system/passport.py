@@ -17,15 +17,15 @@ def get_captcha():
     return resp
 
 
-# 登录
+# 登录--登陆成功后从服务器获取消息--进行页面跳转
 @bp.get('/login')
 def login():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated:  # post已登陆获得授权
         return redirect(url_for('system.index'))
     return render_template('system/login.html')
 
 
-# 登录
+# 登录--输入用户名和密码登陆
 @bp.post('/login')
 def login_post():
     req = request.form
@@ -75,7 +75,7 @@ def login_post():
         # session['role'] = [roles]
 
         return success_api(msg="登录成功")
-    login_log(request, uid=user.id, is_access=False)
+    login_log(request, uid=user.id, is_access=False)  # 登录日志写入数据库中
     return fail_api(msg="用户名或密码错误")
 
 

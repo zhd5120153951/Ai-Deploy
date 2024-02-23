@@ -8,7 +8,7 @@ from datetime import timedelta
 class BaseConfig:
     SUPERADMIN = 'admin'
 
-    SYSTEM_NAME = 'Pear Admin'
+    SYSTEM_NAME = 'Greatech AI'
     # 主题面板的链接列表配置
     SYSTEM_PANEL_LINKS = [
         {
@@ -35,8 +35,10 @@ class BaseConfig:
     # JSON配置
     JSON_AS_ASCII = False
 
-    SECRET_KEY = "pear-system-flask"
+    # SECRET_KEY = "pear-system-flask"
+    SECRET_KEY = "greatech-system-flask"
 
+    # 暂时用sqlite
     # mysql 配置
     # MYSQL_USERNAME = "root"
     # MYSQL_PASSWORD = "123456"
@@ -57,7 +59,7 @@ class BaseConfig:
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
     MAIL_PORT = 465
-    MAIL_USERNAME = '123@qq.com'
+    MAIL_USERNAME = '2462491568@qq.com'
     MAIL_PASSWORD = 'XXXXX'  # 生成的授权码
     MAIL_DEFAULT_SENDER = MAIL_USERNAME
 
@@ -89,7 +91,6 @@ class BaseConfig:
 
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
 
-    SESSION_TYPE = "filesystem" # 默认使用文件系统来保存会话
+    SESSION_TYPE = "filesystem"  # 默认使用文件系统来保存会话
     SESSION_PERMANENT = False  # 会话是否持久化
     SESSION_USE_SIGNER = True  # 是否对发送到浏览器上 session 的 cookie 值进行加密
-

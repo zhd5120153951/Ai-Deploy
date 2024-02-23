@@ -12,6 +12,8 @@ from applications.view.system.rights import bp as right_bp
 from applications.view.system.role import bp as role_bp
 from applications.view.system.user import bp as user_bp
 from applications.view.system.dept import bp as dept_bp
+# 图像管理的子蓝图
+from applications.view.system.manage import bp as manage_bp
 
 # 创建sys
 system_bp = Blueprint('system', __name__, url_prefix='/system')
@@ -30,5 +32,8 @@ def register_system_bps(app: Flask):
     system_bp.register_blueprint(passport_bp)
     system_bp.register_blueprint(right_bp)
     system_bp.register_blueprint(dept_bp)
+
+    system_bp.register_blueprint(manage_bp)
+
     app.register_blueprint(index_bp)
     app.register_blueprint(system_bp)

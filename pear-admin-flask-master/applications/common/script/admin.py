@@ -8,6 +8,7 @@ from applications.models import User, Role, Dept, Power
 admin_cli = AppGroup("admin")
 
 now_time = datetime.datetime.now()
+# 用户数据列表
 userdata = [
     User(
         id=1,
@@ -43,6 +44,7 @@ userdata = [
         dept_id=7,
     ),
 ]
+# 角色数据列表
 roledata = [
     Role(
         id=1,
@@ -63,6 +65,7 @@ roledata = [
         create_time=now_time,
     )
 ]
+# 部门数据列表
 deptdata = [
     Dept(
         id=1,
@@ -129,6 +132,7 @@ deptdata = [
 
     )
 ]
+# 功能点数据列表
 powerdata = [
     Power(
         id=1,
@@ -549,7 +553,8 @@ def add_user_role():
 
 
 def add_role_power():
-    admin_powers = Power.query.filter(Power.id.in_([1, 3, 4, 9, 12, 13, 17, 18, 44, 48])).all()
+    admin_powers = Power.query.filter(Power.id.in_(
+        [1, 3, 4, 9, 12, 13, 17, 18, 44, 48])).all()
     admin_user = Role.query.filter_by(id=2).first()
     for i in admin_powers:
         admin_user.power.append(i)

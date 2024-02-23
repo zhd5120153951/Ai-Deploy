@@ -9,6 +9,7 @@ def init_login_manager(app):
 
     @login_manager.user_loader
     def load_user(user_id):
+        # 导入用户类--匹配数据库中的用户
         from applications.models import User
         user = User.query.get(int(user_id))
         return user
