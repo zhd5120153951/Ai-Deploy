@@ -10,11 +10,11 @@ from applications.common.utils import upload as upload_curd
 bp = Blueprint('adminFile', __name__, url_prefix='/file')
 
 
-#  图片管理
+#  图片上传管理界面
 @bp.get('/')
 @authorize("system:file:main")
 def index():
-    return render_template('system/photo/photo.html')
+    return render_template('system/photo/photo_upload.html')
 
 
 #  图片数据
@@ -27,15 +27,15 @@ def table():
     return table_api(data=data, count=count)
 
 
-#   上传
-@bp.get('/upload')
+#   新增界面
+@bp.get('/add')
 @authorize("system:file:add", log=True)
 def upload():
-    return render_template('system/photo/photo_add.html')
+    return render_template('system/photo/add/photo_add.html')
 
 
 #   上传接口
-@bp.post('/upload')
+@bp.post('/add')
 @authorize("system:file:add", log=True)
 def upload_api():
     if 'file' in request.files:
@@ -75,7 +75,8 @@ def batch_remove():
     upload_url = current_app.config.get("UPLOADED_PHOTOS_DEST")
     for p in photo_name:
         os.remove(upload_url + '/' + p.name)
-    photo = Photo.query.filter(Photo.id.in_(ids)).delete(synchronize_session=False)
+    photo = Photo.query.filter(Photo.id.in_(
+        ids)).delete(synchronize_session=False)
     db.session.commit()
     if photo:
         return success_api(msg="删除成功")

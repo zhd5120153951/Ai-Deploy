@@ -144,7 +144,7 @@
         }
         return [width + 'px', height + 'px']
       }
-
+      //这里add对应的file中的路由地址
       window.add = function () {
         layer.open({
           type: 2,
@@ -152,7 +152,8 @@
           title: '新增图片',
           shade: 0.1,
           area: screen(),
-          content: 'upload'
+          // content: 'upload'
+          content: 'add'//zhd
         })
       }
 

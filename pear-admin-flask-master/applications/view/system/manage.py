@@ -42,7 +42,7 @@ def table():
 @bp.get('/upload')
 @authorize("system:manage:add", log=True)
 def upload():
-    return render_template('system/photo/photo_add.html')
+    return render_template('system/photo/manage/camera_add.html')
 
 
 #   上传接口

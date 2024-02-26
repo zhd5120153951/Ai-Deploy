@@ -58,7 +58,7 @@
                     },
                     {
                         field: 'name',
-                        title: '文件名称',
+                        title: '摄像头编号',
                         unresize: true,
                         align: 'center'
                     },
@@ -75,14 +75,16 @@
 
                     },
                     {
-                        field: 'mime',
-                        title: 'mime类型',
+                        // field: 'mime',
+                        field: 'camera_url',
+                        title: '摄像头地址',
                         unresize: true,
                         align: 'center'
                     },
                     {
-                        field: 'size',
-                        title: '文件大小',
+                        // field: 'size',
+                        field: 'camera_name',
+                        title: '摄像头名称',
                         unresize: true,
                         align: 'center'
                     },
@@ -92,6 +94,13 @@
                         templet: '#file-uploadTime',
                         unresize: true,
                         align: 'center'
+                    },
+                    {
+                        title: '状态',
+                        toolbar: '#user-bar',
+                        align: 'center',
+                        unresize: true,
+                        width: 200
                     },
                     {
                         title: '操作',
