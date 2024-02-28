@@ -127,9 +127,9 @@ layui.define(['layer', 'element'], function (exports) {
         putTempData: function (key, value) {
             var tableName = admin.tableName + '_tempData';
             if (value != undefined && value != null) {
-                layui.sessionData(tableName, {key: key, value: value});
+                layui.sessionData(tableName, { key: key, value: value });
             } else {
-                layui.sessionData(tableName, {key: key, remove: true});
+                layui.sessionData(tableName, { key: key, remove: true });
             }
         },
         /* 获取缓存临时数据 */

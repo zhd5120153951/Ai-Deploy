@@ -1,198 +1,200 @@
 {% from 'system/common/memory.html' import memory_format %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>首页</title>
     {% include 'system/common/header.html' %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='system/system/css/other/console2.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='system/system/css/other/console2.css') }}" />
 </head>
+
 <body class="pear-container">
-<div class="layui-row layui-col-space10">
-    <div class="layui-col-md8">
-        <div class="layui-row layui-col-space10">
-            <div class="layui-col-md6">
-                <div class="layui-card">
-                    <div class="layui-card-header">
-                        主机信息
-                    </div>
-                    <div class="layui-card-body">
-                        <div class="layui-row layui-col-space10">
-                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                                <div class="pear-card2">
-                                    <div class="title">核心数</div>
-                                    <div class="count pear-text">{{ cpu_count }}</div>
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md8">
+            <div class="layui-row layui-col-space10">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            主机信息
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row layui-col-space10">
+                                <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                                    <div class="pear-card2">
+                                        <div class="title">核心数</div>
+                                        <div class="count pear-text">{{ cpu_count }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                                <div class="pear-card2">
-                                    <div class="title">空闲率</div>
-                                    <div class="count pear-text"></div>
+                                <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                                    <div class="pear-card2">
+                                        <div class="title">空闲率</div>
+                                        <div class="count pear-text"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                                <div class="pear-card2">
-                                    <div class="title">等待率</div>
-                                    <div class="count pear-text"></div>
+                                <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                                    <div class="pear-card2">
+                                        <div class="title">等待率</div>
+                                        <div class="count pear-text"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                                <div class="pear-card2">
-                                    <div class="title">使用率</div>
-                                    <div class="count pear-text">{{ cpus_percent }}%</div>
+                                <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                                    <div class="pear-card2">
+                                        <div class="title">使用率</div>
+                                        <div class="count pear-text">{{ cpus_percent }}%</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="layui-col-md6">
-                <div class="layui-card">
-                    <div class="layui-card-header">
-                        内存监控
-                    </div>
-                    <div class="layui-card-body">
-                        <div class="layui-row layui-col-space10">
-                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                                <div class="pear-card2">
-                                    <div class="title">空闲内存</div>
-                                    <div class="count pear-text">{{ memory_format(memory_free) }}</div>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            内存监控
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row layui-col-space10">
+                                <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                                    <div class="pear-card2">
+                                        <div class="title">空闲内存</div>
+                                        <div class="count pear-text">{{ memory_format(memory_free) }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                                <div class="pear-card2">
-                                    <div class="title">最大内存</div>
-                                    <div class="count pear-text">{{ memory_format(memory_total) }}</div>
+                                <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                                    <div class="pear-card2">
+                                        <div class="title">最大内存</div>
+                                        <div class="count pear-text">{{ memory_format(memory_total) }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                                <div class="pear-card2">
-                                    <div class="title">已用内存</div>
-                                    <div class="count pear-text">{{ memory_format(memory_used) }}</div>
+                                <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                                    <div class="pear-card2">
+                                        <div class="title">已用内存</div>
+                                        <div class="count pear-text">{{ memory_format(memory_used) }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                                <div class="pear-card2">
-                                    <div class="title">内存使用</div>
-                                    <div class="count pear-text">{{ memory_usage }}%</div>
+                                <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                                    <div class="pear-card2">
+                                        <div class="title">内存使用</div>
+                                        <div class="count pear-text">{{ memory_usage }}%</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="layui-col-md12">
-                <div class="layui-card">
-                    <div class="layui-card-header">主机监控</div>
-                    <div class="layui-card-body">
-                        <div class="layui-tab custom-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-                            <div id="echarts-records" style="background-color:#ffffff;min-height:400px;"></div>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">主机监控</div>
+                        <div class="layui-card-body">
+                            <div class="layui-tab custom-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                                <div id="echarts-records" style="background-color:#ffffff;min-height:400px;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="layui-col-md4">
-        <div class="layui-card">
-            <div class="layui-card-header">磁盘信息</div>
-            <div class="layui-card-body">
-                <ul class="pear-card-status">
-                    {% for disk in disk_partitions_list %}
+        <div class="layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">磁盘信息</div>
+                <div class="layui-card-body">
+                    <ul class="pear-card-status">
+                        {% for disk in disk_partitions_list %}
                         <li>
                             <p>{{ disk.device }}</p>
                             <p>{{ disk.fstype }}</p>
                             磁盘大小: <span>{{ memory_format(disk.total) }}</span>&nbsp;&nbsp;
                             空闲大小: <span>{{ memory_format(disk.free) }}</span>&nbsp;&nbsp;
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             已经使用: <span>{{ memory_format(disk.used) }}</span>&nbsp;&nbsp;
                             使用率: <span>{{ disk.percent }}%</span>
-                            <br/>
-                            <a href="javascript:0" data-id="1" class="pear-btn pear-btn-xs pear-btn-primary pear-reply">详情</a>
+                            <br />
+                            <a href="javascript:0" data-id="1"
+                                class="pear-btn pear-btn-xs pear-btn-primary pear-reply">详情</a>
                         </li>
-                    {% endfor %}
-                </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="layui-card">
-            <div class="layui-card-header">主机信息</div>
-            <div class="layui-card-body">
-                <table class="layui-table" lay-skin="line">
-                    <thead>
-                    <tr>
-                        <th>属性</th>
-                        <th>值</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>名称</td>
-                        <td>{{ hostname }}</td>
-                    </tr>
+            <div class="layui-card">
+                <div class="layui-card-header">主机信息</div>
+                <div class="layui-card-body">
+                    <table class="layui-table" lay-skin="line">
+                        <thead>
+                            <tr>
+                                <th>属性</th>
+                                <th>值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>名称</td>
+                                <td>{{ hostname }}</td>
+                            </tr>
 
-                    <tr>
-                        <td>系统</td>
-                        <td>{{ system_version }}</td>
-                    </tr>
-                    <tr>
-                        <td>开机时间</td>
-                        <td>{{ boot_time }}</td>
-                    </tr>
-                    <tr>
-                        <td>运行时长</td>
-                        <td>{{ up_time_format }}</td>
-                    </tr>
-                    <tr>
-                        <td>python版本</td>
-                        <td>{{ python_version }}</td>
-                    </tr>
-                    <tr>
-                        <td>程序操作</td>
-                        <td>
-                            <a href="javascript:kill();"
-                               class="pear-btn pear-btn-xs pear-btn-primary">关闭程序</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            <tr>
+                                <td>系统</td>
+                                <td>{{ system_version }}</td>
+                            </tr>
+                            <tr>
+                                <td>开机时间</td>
+                                <td>{{ boot_time }}</td>
+                            </tr>
+                            <tr>
+                                <td>运行时长</td>
+                                <td>{{ up_time_format }}</td>
+                            </tr>
+                            <tr>
+                                <td>python版本</td>
+                                <td>{{ python_version }}</td>
+                            </tr>
+                            <tr>
+                                <td>程序操作</td>
+                                <td>
+                                    <a href="javascript:kill();" class="pear-btn pear-btn-xs pear-btn-primary">关闭程序</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
-{% include 'system/common/footer.html' %}
-<script>
-    layui.use(['layer', 'echarts', 'popup'], function () {
-        var $ = layui.jquery,
-            echarts = layui.echarts;
-        let popup = layui.popup;
+    {% include 'system/common/footer.html' %}
+    <script>
+        layui.use(['layer', 'echarts', 'popup'], function () {
+            var $ = layui.jquery,
+                echarts = layui.echarts;
+            let popup = layui.popup;
 
-        var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
+            var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
 
-        $("body").on("click", "[data-url]", function () {
-            parent.layui.tab.addTabOnlyByElem("content", {
-                id: $(this).attr("data-id"),
-                title: $(this).attr("data-title"),
-                url: $(this).attr("data-url"),
-                close: true
+            $("body").on("click", "[data-url]", function () {
+                parent.layui.tab.addTabOnlyByElem("content", {
+                    id: $(this).attr("data-id"),
+                    title: $(this).attr("data-title"),
+                    url: $(this).attr("data-url"),
+                    close: true
+                })
             })
-        })
 
 
-        let bgColor = "#fff";
-        let color = [
-            "#0090FF",
-            "#36CE9E",
-            "#FFC005",
-            "#FF515A",
-            "#8B5CFF",
-            "#00CA69"
-        ];
+            let bgColor = "#fff";
+            let color = [
+                "#0090FF",
+                "#36CE9E",
+                "#FFC005",
+                "#FF515A",
+                "#8B5CFF",
+                "#00CA69"
+            ];
 
-        let echartData = [
-            {
-                name: "{{time_now}}",
-                cpu_percent: {{ cpus_percent }},
-                memory_percent: {{ memory_usage }}
+            let echartData = [
+                {
+                    name: "{{time_now}}",
+                    cpu_percent: {{ cpus_percent }},
+            memory_percent: {{ memory_usage }}
             },
         ];
 
@@ -318,10 +320,10 @@
                                 offset: 0,
                                 color: hexToRgba(color[0], 0.3)
                             },
-                                {
-                                    offset: 1,
-                                    color: hexToRgba(color[0], 0.1)
-                                }
+                            {
+                                offset: 1,
+                                color: hexToRgba(color[0], 0.1)
+                            }
                             ],
                             false
                         ),
@@ -355,10 +357,10 @@
                                 offset: 0,
                                 color: hexToRgba(color[1], 0.3)
                             },
-                                {
-                                    offset: 1,
-                                    color: hexToRgba(color[1], 0.1)
-                                }
+                            {
+                                offset: 1,
+                                color: hexToRgba(color[1], 0.1)
+                            }
                             ],
                             false
                         ),
@@ -408,9 +410,8 @@
             })
 
         }
-
-
     });
-</script>
+    </script>
 </body>
+
 </html>
