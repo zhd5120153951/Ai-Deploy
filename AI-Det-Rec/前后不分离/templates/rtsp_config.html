@@ -1,0 +1,180 @@
+{% extends "homepage.html" %}
+
+{% block content %}
+<div class="container">
+
+    <form id="rtspForm">
+        <div class="form-group">
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">密码:</label>
+            <input type="text" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="rtspUrl">流地址:</label>
+            <input type="text" id="rtspUrl" name="rtspUrl" required>
+        </div>
+        <button class="responsive-btn" type="submit" id="submit">提交</button>
+        <button class="rtsp" type="submit" id="preview">预览</button>
+        <button class="responsive-btn" type="submit" id="control">布控</button>
+        <button class="responsive-btn" type="submit" id="cancel">取消</button>
+    </form>
+
+    <div class="rtsp">
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+        {% for message in messages %}
+        <p class="rtsp">{{ message }}</p>
+        {% endfor %}
+
+        {% endif %}
+        {% endwith %}
+
+    </div>
+
+</div>
+
+<!-- grid布局 -->
+<style>
+    .container {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        height: auto;
+        width: auto;
+        background-color: cadetblue;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .rtsp {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1em;
+        height: auto;
+        width: auto;
+    }
+
+    .responsive-btn {
+        height: auto;
+        border: none;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        width: auto;
+        /* padding: 0.75rem 1.5rem; */
+        font-size: 1em;
+        font-family: 'Courier New', Courier, monospace;
+        color: white;
+        background-color: #488aec;
+        border-radius: 4px;
+        text-align: center;
+        text-transform: uppercase;
+        vertical-align: middle;
+
+        align-items: center;
+        /* display: flex; */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        overflow: hidden;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: inline-block;
+        width: 100px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        -color: #5cb85c;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #4cae4c;
+    }
+</style>
+<script>
+    //把rtsp地址传给后端--目前没有用户名和密码
+    document.getElementById('submit').addEventListener('click', function () {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const rtspUrl = document.getElementById('rtspUrl').value;
+        fetch('/set_rtsp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+                rtspUrl: rtspUrl
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('摄像头布控成功.');
+                } else {
+                    alert('摄像头布控失败.');
+                }
+            })
+            .catch(error => {
+                console.error('Error', error);
+            })
+    })
+    //预览
+    document.getElementById('submit').addEventListener('click', function () {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const rtspUrl = document.getElementById('rtspUrl').value;
+        fetch('/set_rtsp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+                rtspUrl: rtspUrl
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('摄像头布控成功.');
+                } else {
+                    alert('摄像头布控失败.');
+                }
+            })
+            .catch(error => {
+                console.error('Error', error);
+            })
+    })
+</script>
+{% endblock %}

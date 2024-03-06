@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/login.css">
+
+</head>
+
+<body background="../static/images/bgd.jpg">
+
+    <div>
+        <p style="text-align: center;font-size: 60px; color: gold;font-family: 宋体;padding-top: 25px;">视频分析平台</p>
+    </div>
+    <div class="login-page">
+        <div class="title-loginMsg">
+            <span class="font3">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <!-- <p class="rtsp">{{ message }}</p> -->
+                {% endif %}
+                {% endwith %}
+            </span>
+        </div>
+
+        <!-- <p id="message"></p> -->
+
+        <!-- type==button,submit;区别:button需要配合js触发事件,submit自己可以把表单数据提交给url=action的后端视图函数 -->
+        <form id="loginForm">
+
+            <!--输入框-->
+            <div class="input-content">
+                <!--autoFocus-->
+                <div>
+                    <input type="text" id="username" autocomplete="off" placeholder="用户名" name="username" required />
+                </div>
+                <div style="margin-top: 16px">
+                    <input type="password" id="password" autocomplete="off" placeholder="登录密码" name="password"
+                        maxlength="32" required />
+                </div>
+            </div>
+
+            <!--登入按钮-->
+            <div style="text-align: center">
+                <button type="submit" class="enter-btn">登录</button>
+
+            </div>
+
+
+            <div class="foor">
+                <div class="left">
+                    <a href="#">
+                        <span>没有账户?</span>
+                    </a>
+                </div>
+
+                <div class="right">
+                    <a href="/register">
+                        <span>注册账户</span>
+                    </a>
+                </div>
+            </div>
+        </form>
+
+        <!-- <script src="../static/js/login.js"></script> -->
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            //JS的Fetch API向后端发送数据--POST
+            fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    //处理响应数据--这里不处理
+                    if (data.success) {
+                        window.location.href = data.redirect;
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        })
+    })
+</script>
+
+</html>

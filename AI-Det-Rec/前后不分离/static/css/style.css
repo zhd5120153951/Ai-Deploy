@@ -1,0 +1,102 @@
+/* static/style.css */
+
+body {
+    background-image: url('../images/bgd.jpg');
+    /*背景图路径*/
+    background-size: cover;
+    /*覆盖屏幕*/
+    color: #fff;
+    /*设置文本为白色fff--255*/
+    font-family: 'Courier New', Courier, monospace, sans-serif;
+    /*设置字体*/
+    margin: 0;
+    /* 边缘 */
+    padding: 0;
+    /* 填充 */
+}
+
+.container {
+    width: 300px;
+    margin: 100px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*样式化按钮*/
+button {
+    background-color: #4CAF50;
+    /* 设置按钮背景颜色 */
+    color: white;
+    /* 设置按钮文本颜色 */
+    padding: 10px 20px;
+    /* 设置按钮内边距 */
+    font-size: 16px;
+    /* 设置按钮字体大小 */
+    border: none;
+    /* 移除按钮边框 */
+    cursor: pointer;
+    /* 添加指针样式 */
+}
+
+/* 样式化输入框 */
+input {
+    padding: 8px;
+    /* 设置输入框内边距 */
+    margin: 5px 0;
+    /* 设置输入框外边距 */
+}
+
+.info {
+    color: red;
+    margin: top 12px;
+}
+
+/* 新加样式 */
+
+/* header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+
+}
+
+nav {
+    width: 200px;
+    background-color: #f4f4f4;
+    float: left;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+nav a {
+    display: block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #333;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #ddd;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #bbb;
+}
+
+.sub-menu {
+    display: none;
+    margin-left: 10px;
+}
+
+nav .has-submenu:hover .sub-menu {
+    display: block;
+}
+
+article {
+    margin-left: 220px;
+    padding: 20px;
+    box-sizing: border-box;
+} */

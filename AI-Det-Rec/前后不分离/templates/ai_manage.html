@@ -1,0 +1,79 @@
+{% extends "homepage.html" %}
+
+{% block content %}
+<div class="container">
+
+    <form>
+        <label class="rtsp" for="gap_det">检测间隔(单位:ms)</label>
+        <!-- required表示form表单不能为空 -->
+        <input class="rtsp" type="text" id="gap_det" name="gap_det" placeholder="检测间隔..." value="{{ gap_det }}">
+        <button class="responsive-btn" type="submit" name="button" value="btn_ok">确定</button>
+    </form>
+
+    <div class="rtsp">
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+        <!-- <ul>
+            {% for message in messages %}
+            <li style="color: red;">{{ message }}</li>
+            {% endfor %}
+        </ul> -->
+
+        {% for message in messages %}
+        <p class="rtsp">{{ message }}</p>
+        {% endfor %}
+
+        {% endif %}
+        {% endwith %}
+
+    </div>
+
+</div>
+
+<!-- grid布局 -->
+<style>
+    .container {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        height: auto;
+        width: auto;
+        background-color: cadetblue;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .rtsp {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1em;
+        height: auto;
+        width: auto;
+    }
+
+    .responsive-btn {
+        height: auto;
+        border: none;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        width: auto;
+        /* padding: 0.75rem 1.5rem; */
+        font-size: 1em;
+        font-family: 'Courier New', Courier, monospace;
+        color: white;
+        background-color: #488aec;
+        border-radius: 4px;
+        text-align: center;
+        text-transform: uppercase;
+        vertical-align: middle;
+
+        align-items: center;
+        /* display: flex; */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        overflow: hidden;
+    }
+</style>
+
+{% endblock %}

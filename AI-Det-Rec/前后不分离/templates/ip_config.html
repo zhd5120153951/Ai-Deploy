@@ -1,0 +1,61 @@
+{% extends "homepage.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- <h2>ip_config</h2>
+    <p>Content for ip_config goes here.</p> -->
+
+    <h1>设备网口当前IP:{{ ip_addr['local_ip'] }}</h1>
+    <form id="ipForm">
+        <label class="ip" for="new_ip">请输入IP:</label>
+        <input class="ip" type="text" id="new_ip" name="new_ip" required>
+        <button class="ip" type="submit" onclick="submitIPForm()">确定</button>
+    </form>
+</div>
+
+<!-- grid布局 -->
+<style>
+    .container {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        height: auto;
+        width: auto;
+        background-color: cadetblue;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .ip {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1em;
+        height: auto;
+        width: auto;
+    }
+</style>
+<script>
+    function submitIPForm() {
+        const data = document.getElementById('new_ip').value;
+        fetch('/set_ip', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                newIP: data
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ret) {
+                    alert('new ip set success');
+                }
+                else {
+                    alert('new ip set failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error', error);
+            })
+    }
+</script>
+{% endblock %}

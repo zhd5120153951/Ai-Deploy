@@ -1,0 +1,74 @@
+{% extends "homepage.html" %}
+
+{% block content %}
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
+
+
+<div>
+
+    <div class="container" id="resource-display">
+        <h2>设备资源监控</h2>
+        <!-- <p style="color: aquamarine;">系统运行时长:<span id="sys-maintain"></span></p> -->
+        <p style="color: red;">CPU使用率:<span id="cpu-usage">0.00</span>% / <span id="cpu-capacity">0.00</span>GHz</p>
+        <p style="color: greenyellow;">内存使用率:<span id="memory-suage">0.00</span>% / <span
+                id="memory-capacity">0.00</span>GB
+        </p>
+        <p style="color: burlywood;">硬盘使用率:<span id="disk-usage">0.00</span>% / <span id="disk-capacity">0.00</span>GB
+        </p>
+    </div>
+
+    <script>
+        // 使用 jQuery 发起 Ajax 请求，实时更新设备资源信息--相当于前端一直在请求url后端
+        function updateResources() {
+            $.ajax({
+                url: '/get_resources',
+                menthod: 'GET',//前端是获取--GET
+                success: function (data) {
+                    //更新页面上的设备资源信息
+                    // $('#sys-maintain'), text(data.sys);
+                    $('#cpu-usage').text(data.cpu);
+                    $('#memory-suage').text(data.memory);
+                    $('#disk-usage').text(data.disk);
+                    // $('#gpu-usage').text(data.gpu);
+                    $('#cpu-capacity').text(data.cpu_cap);
+                    $('#memory-capacity').text(data.memory_cap);
+                    $('#disk-capacity').text(data.disk_cap);
+
+
+                    //继续实时更新
+                    setTimeout(updateResources, 1000);//1000ms更新一次
+                }
+            });
+        }
+        //页面加载完成后开始更新设备资源信息
+        $(document).ready(function () {
+            updateResources();
+        });
+
+    </script>
+
+</div>
+
+
+<!-- grid布局 -->
+<style>
+    .container {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        height: auto;
+        width: auto;
+        background-color: cadetblue;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .rtsp {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1em;
+        height: auto;
+        width: auto;
+    }
+</style>
+
+{% endblock %}

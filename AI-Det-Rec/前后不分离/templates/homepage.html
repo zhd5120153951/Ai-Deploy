@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-安全生产管控平台</title>
+
+    <!-- 引入样式表--url_for()保证正确引用样式表 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdeliver.net/npm/chart.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css">
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            /* background-color: #00f3cf; */
+            color: #fff;
+            /* padding: 0.25em; */
+            text-align: center;
+            font-size: larger;
+        }
+
+        nav {
+            background-color: #959292;
+            color: #fff;
+            padding: 0.5em;
+            text-align: center;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        footer {
+            /* background-color: #333; */
+            color: #fff;
+            padding: 0.5em;
+            text-align: center;
+            position: fixed;
+            /* bottom: 0; */
+            bottom: 0cm;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <h1>安全生产管理平台</h1>
+    </header>
+
+    <nav>
+        <a href="ip_config">IP配置</a> |
+        <a href="rtsp_config">RTSP配置</a> |
+        <a href="system_resource">系统资源</a> |
+        <a href="ai_manage">AI设置</a>
+    </nav>
+
+    <!-- <section>
+        <h2>欢迎使用安全生产管理平台</h2>
+        <p>在这里，您可以管理安全生产数据、生成报告并查看统计信息。</p>
+    </section> -->
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p id="year"></p>
+
+        <!-- <p id="year">&copy; 安全生产管理平台</p> -->
+        <script>
+            // 获取当前年份
+            const currentYear = new Date().getFullYear();
+
+            // 将年份显示在页面底部
+            document.getElementById("year").innerText = "版权所有 ©" + currentYear + " 安全生产管理平台";
+
+        </script>
+
+    </footer>
+
+</body>
+
+</html>
