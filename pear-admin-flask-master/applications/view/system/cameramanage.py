@@ -16,19 +16,32 @@ bp = Blueprint('cameramanage', __name__, url_prefix='/cameramanage')
 def index():
     return render_template('system/camera/camera_manage.html')
 
+#  获取已添加的摄像头数据
 
-#  图片数据--非此功能可以忽略
+
 @bp.get('/table')
-@authorize("system:cameramanage:add")
+@authorize("system:cameramanage:main")
 def table():
     page = request.args.get('page', type=int)
     limit = request.args.get('limit', type=int)
     data, count = upload_curd.get_photo(page=page, limit=limit)
     return table_api(data=data, count=count)
 
+#  删除逻辑
 
-#   新增界面
-@bp.get('/add')
-@authorize("system:cameramanage:add", log=True)
-def upload():
-    return render_template('system/camera/camera_add.html')
+
+@bp.route('/delete', methods=['GET', 'POST'])
+@authorize("system:cameramanage:delete", log=True)
+def deletecamera():
+    _id = request.form.get('id')
+    res = upload_curd.delete_photo_by_id(_id)
+    if res:
+        return success_api(msg="删除成功")
+    else:
+        return fail_api(msg="删除失败")
+
+
+@bp.route('/delete_batch', methods=['GET', 'POST'])
+@authorize("system:cameramanage:delete", log=True)
+def deletecamera_batch():
+    pass

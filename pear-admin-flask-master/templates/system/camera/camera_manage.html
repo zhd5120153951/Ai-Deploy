@@ -2,30 +2,11 @@
 <html>
 
 <head>
-    <title>摄像头管理</title>
+    <title>管理摄像头</title>
     {% include 'system/common/header.html' %}
 </head>
 
 <body class="pear-container">
-
-    <div class="layui-container">
-        <form class="layui-form" id="rtspForm">
-            <div class="layui-form-item">
-                <label class="layui-form-label">RTSP流地址</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="rtspUrl" lay-verify="required" placeholder="请输入RTSP流地址" autocomplete="off"
-                        class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <br>
 
     <div class="layui-card">
         <div class="layui-card-body">
@@ -34,29 +15,23 @@
     </div>
 
     <script type="text/html" id="toolbar">
-    {% if authorize("system:file:add") %}
-        <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="add">
-            <i class="layui-icon layui-icon-add-1"></i>
-            新增
-        </button>
-    {% endif %}
-    {% if authorize("system:file:delete") %}
-        <button class="pear-btn pear-btn-sm" lay-event="batchRemove">
+    {% if authorize("system:cameramanage:delete") %}
+        <button class="pear-btn pear-btn-sm" lay-event="batchdelete">
             <i class="layui-icon layui-icon-delete"></i>
             删除
         </button>
     {% endif %}
-</script>
+    </script>
 
     <script type="text/html" id="user-bar">
-    {% if authorize("system:file:delete") %}
-        <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i
+    {% if authorize("system:cameramanage:delete") %}
+        <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="delete"><i
                 class="layui-icon layui-icon-delete"></i>delete</button>
     {% endif %}
-</script>
+    </script>
     <script type="text/html" id="file-uploadTime">
-    {{ '  {{layui.util.toDateString(d.create_time,  "yyyy-MM-dd HH:mm:ss")}' |safe }}}
-</script>
+    {{ '{{layui.util.toDateString(d.create_time,  "yyyy-MM-dd HH:mm:ss")}' |safe }}}
+    </script>
     {% include 'system/common/footer.html' %}
 
     <script>
@@ -84,16 +59,10 @@
                         align: 'center'
                     },
                     {
-                        field: 'href',
-                        title: '预览',
+                        field: 'status',
+                        title: '状态',
                         unresize: true,
-                        align: 'center',
-                        templet: function (d) {
-                            return '<img class="photo" style="max-width: 100%;\n' +
-                                '  height: 100%;\n' +
-                                '  cursor: pointer;" lay-event="photo" src=" ' + d.href + '"></i>'
-                        }
-
+                        align: 'center'
                     },
 
                     {
@@ -112,7 +81,7 @@
                     }
                 ]
             ]
-
+            //从数据库获取数据--放到datatable中
             table.render({
                 elem: '#dataTable',
                 url: 'table',
@@ -127,53 +96,27 @@
             })
 
             table.on('tool(dataTable)', function (obj) {
-                if (obj.event === 'remove') {
-                    window.remove(obj)
-                } else if (obj.event === 'photo') {
-                    window.photo(obj)
+                if (obj.event === 'delete') {
+                    window.delete(obj)
                 }
             })
-
+            //表单事件
             table.on('toolbar(dataTable)', function (obj) {
-                if (obj.event === 'add') {
-                    window.add()
-                } else if (obj.event === 'refresh') {
+                if (obj.event === 'refresh') {
                     window.refresh()
-                } else if (obj.event === 'batchRemove') {
-                    window.batchRemove(obj)
+                } else if (obj.event === 'batchdelete') {
+                    window.batchdelete(obj)
                 }
             })
 
-            //弹出窗设置 自己设置弹出百分比
-            function screen() {
-                if (typeof width !== 'number' || width === 0) {
-                    width = $(window).width() * 0.8
-                }
-                if (typeof height !== 'number' || height === 0) {
-                    height = $(window).height() - 20
-                }
-                return [width + 'px', height + 'px']
-            }
-            //直接跳转到添加界面
-            window.add = function () {
-                layer.open({
-                    type: 2,
-                    maxmin: true,
-                    title: '添加摄像头',
-                    shade: 0.1,
-                    area: screen(),
-                    // content: 'upload'
-                    content: 'add'//zhd
-                })
-            }
-
-            window.remove = function (obj) {
-                layer.confirm('确定要删除该图片', {
+            window.delete = function (obj) {
+                layer.confirm('确定要删除该摄像机', {
                     icon: 3,
                     title: '提示'
                 }, function (index) {
                     layer.close(index)
                     let loading = layer.load()
+                    //后端也该知道该相机被删除,推理立刻停止
                     $.ajax({
                         url: 'delete',
                         data: { id: obj.data['id'] },
@@ -199,7 +142,7 @@
                 })
             }
 
-            window.batchRemove = function (obj) {
+            window.batchdelete = function (obj) {
                 let data = table.checkStatus(obj.config.id).data
                 if (data.length === 0) {
                     layer.msg('未选中数据', {
@@ -216,14 +159,14 @@
                         ids.push(element.id)
                     })
                 }
-                layer.confirm('确定要删除这些图片', {
+                layer.confirm('确定要删除这些摄像头', {
                     icon: 3,
                     title: '提示'
                 }, function (index) {
                     layer.close(index)
                     let loading = layer.load()
                     $.ajax({
-                        url: "{{ url_for('system.adminFile.batch_remove') }}",
+                        url: "{{ url_for('system.cameramanage.deletecamera_batch') }}",
                         data: { ids: ids },
                         dataType: 'json',
                         type: 'POST',
@@ -250,55 +193,6 @@
             window.refresh = function () {
                 table.reload('dataTable')
             }
-            // 查看大图
-            window.photo = function (obj) {
-                if (!obj.data.href || obj.data.href === '') {
-                    layer.msg('图片地址错误！')
-                    return
-                }
-                var auto_img = {}
-                var img = new Image()
-                img.src = obj.data.href
-                img.onload = function () {
-                    var max_height = $(window).height() - 100
-                    var max_width = $(window).width()
-                    var rate1 = max_height / img.height
-                    var rate2 = max_width / img.width
-                    var rate3 = 1
-                    var rate = Math.min(rate1, rate2, rate3)
-                    auto_img.height = img.height * rate
-                    auto_img.width = img.width * rate
-                    layer.open({
-                        type: 1,
-                        title: false,
-                        area: ['auto'],
-                        skin: 'layui-layer-nobg', //没有背景色
-                        shadeClose: true,
-                        content: '<img src=\'' + obj.data['href'] + '\' width=\'' + auto_img.width + 'px\' height=\'' + auto_img.height + 'px\'>'
-                    })
-                }
-            }
 
         })
-
-        layui.use('form', function () {
-            var form = layui.form;
-
-            // 监听表单提交
-            form.on('submit(submit)', function (data) {
-                var rtspUrl = data.field.rtspUrl;
-
-                // 发送 RTSP 地址到后端的逻辑
-                // 可以使用 AJAX 或 Fetch API 发送请求
-
-                // 模拟一个 AJAX 请求
-                setTimeout(function () {
-                    // 请求成功后的操作
-                    console.log('RTSP地址已提交：', rtspUrl);
-                    layer.msg('RTSP地址已提交：' + rtspUrl);
-                }, 1000);
-
-                return false; // 阻止表单默认提交
-            });
-        });
     </script>

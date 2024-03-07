@@ -9,7 +9,8 @@ from applications.common.curd import model_to_dicts
 
 
 def get_photo(page, limit):
-    photo = Photo.query.order_by(desc(Photo.create_time)).paginate(page=page, per_page=limit, error_out=False)
+    photo = Photo.query.order_by(desc(Photo.create_time)).paginate(
+        page=page, per_page=limit, error_out=False)
     count = Photo.query.count()
     data = model_to_dicts(schema=PhotoOutSchema, data=photo.items)
     return data, count
@@ -34,3 +35,8 @@ def delete_photo_by_id(_id):
     upload_url = current_app.config.get("UPLOADED_PHOTOS_DEST")
     os.remove(upload_url + '/' + photo_name)
     return photo
+
+
+# 摄像头处理逻辑
+def add_one(camera):
+    pass
