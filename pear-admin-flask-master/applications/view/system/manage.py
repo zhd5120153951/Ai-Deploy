@@ -1,6 +1,6 @@
 '''
 @FileName   :device.py
-@Description:
+@Description:对应图像管理
 @Date       :2024/02/23 16:21:58
 @Author     :daito
 @Website    :Https://github.com/zhd5120153951

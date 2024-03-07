@@ -1,3 +1,14 @@
+'''
+@FileName   :file.py
+@Description:对应文件管理中的图片上传
+@Date       :2024/03/06 15:45:33
+@Author     :daito
+@Website    :Https://github.com/zhd5120153951
+@Copyright  :daito
+@License    :None
+@version    :1.0
+@Email      :2462491568@qq.com
+'''
 import os
 from flask import Blueprint, request, render_template, jsonify, current_app
 

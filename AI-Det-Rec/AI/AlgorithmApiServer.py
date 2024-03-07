@@ -43,6 +43,8 @@ def imageObjectDetect():
     appKey = params.get("appKey")
     # 接收base64编码的图片并转换成cv2的图片格式
     image_base64 = params.get("image_base64", None)
+    # 区域坐标
+    coordinate = np.array(params.get("coordinate"))  # ndaaray类型
 
     if image_base64:
         if algorithm_str in ["openvino_yolov5"]:
@@ -51,9 +53,19 @@ def imageObjectDetect():
             image_array = np.frombuffer(encoded_image_byte, np.uint8)
             # image = turboJpeg.decode(image_array)  # turbojpeg 解码
             image = cv2.imdecode(image_array, cv2.COLOR_RGB2BGR)  # opencv 解码
+            # 为图片添加蒙板--其实也可以截取图片部分
+            temp_frame = image.copy()
+            mask = np.zeros([temp_frame.shape[0],
+                             temp_frame.shape[1]],
+                            dtype=np.uint8)
+
+            mask = cv2.fillPoly(mask, [coordinate], (255, 255, 255))
+            temp_frame = cv2.add(temp_frame, np.zeros(
+                np.shape(temp_frame), dtype=np.uint8), mask=mask)
 
             if "openvino_yolov5" == algorithm_str:
-                detect_num, detect_data = openVinoYoloV5Detector.detect(image)
+                detect_num, detect_data = openVinoYoloV5Detector.detect(
+                    temp_frame)  # frame
                 data["result"] = {
                     "detect_num": detect_num,
                     "detect_data": detect_data,

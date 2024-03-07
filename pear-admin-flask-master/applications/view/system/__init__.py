@@ -14,6 +14,10 @@ from applications.view.system.user import bp as user_bp
 from applications.view.system.dept import bp as dept_bp
 # 图像管理的子蓝图
 from applications.view.system.manage import bp as manage_bp
+# 摄像头管理的子蓝图
+from applications.view.system.cameramanage import bp as cameramanage_bp
+from applications.view.system.cameraadd import bp as cameraadd_bp
+from applications.view.system.camerapreview import bp as camerapreview_bp
 
 # 创建sys
 system_bp = Blueprint('system', __name__, url_prefix='/system')
@@ -34,6 +38,9 @@ def register_system_bps(app: Flask):
     system_bp.register_blueprint(dept_bp)
 
     system_bp.register_blueprint(manage_bp)
+    system_bp.register_blueprint(cameramanage_bp)
+    system_bp.register_blueprint(cameraadd_bp)
+    system_bp.register_blueprint(camerapreview_bp)
 
     app.register_blueprint(index_bp)
     app.register_blueprint(system_bp)

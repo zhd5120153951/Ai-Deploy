@@ -134,20 +134,22 @@ class OpenVinoYoloV5Detector():
 
         # 显示检测框bbox
         for (class_id, score, box) in zip(class_ids, scores, boxes):
-            location = {
-                "x1": box[0],
-                "y1": box[1],
-                "x2": box[0] + box[2],
-                "y2": box[1] + box[3]
-            }
-            detect_data.append({
-                "class_name": classes[class_id],
-                "location": location,
-                # "score": float("%.2f" % (float(confidence)))
-                "score": round(float(score), 2)
-            })
-            detect_num += 1
-
+            if class_id == 0:  # 只检测人
+                location = {
+                    "x1": box[0],
+                    "y1": box[1],
+                    "x2": box[0] + box[2],
+                    "y2": box[1] + box[3]
+                }
+                detect_data.append({
+                    "class_name": classes[class_id],
+                    "location": location,
+                    # "score": float("%.2f" % (float(confidence)))
+                    "score": round(float(score), 2)
+                })
+                detect_num += 1
+            else:
+                return detect_num, detect_data
         return detect_num, detect_data
 
 

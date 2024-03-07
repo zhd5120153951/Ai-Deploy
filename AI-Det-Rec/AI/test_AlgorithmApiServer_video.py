@@ -16,7 +16,7 @@ import random
 import base64
 import requests
 import multiprocessing
-
+import numpy as np
 # from turbojpeg import TurboJPEG
 
 
@@ -36,10 +36,17 @@ class test_video():
         image_base64 = base64.b64encode(encoded_image_byte)
         image_base64 = image_base64.decode("utf-8")  # str类型
         # 后端算法服务
-        res = requests.post(url='%s/image/objectDetect' % random.choice(self.hosts), data={
+        # res = requests.post(url='%s/image/objectDetect' % random.choice(self.hosts), data={
+        #     "appKey": self.appKey,
+        #     "image_base64": image_base64,
+        #     "algorithm": "openvino_yolov5",
+        #     "coordinate": self.coordinate,  # 区域坐标
+        # })
+        res = requests.post(url='%s/image/objectDetect' % random.choice(self.hosts), json={
             "appKey": self.appKey,
             "image_base64": image_base64,
             "algorithm": "openvino_yolov5",
+            "coordinate": self.coordinate,  # 区域坐标
         })
 
         if 200 == res.status_code:
@@ -56,6 +63,19 @@ class test_video():
 
         return __state, __detect_num, __detect_data
 
+    def mouse_callback(self, event, x, y, flag, param):
+        global points
+        if event == cv2.EVENT_LBUTTONDBLCLK:
+            print(points)
+            self.coordinate = points
+
+        elif event == cv2.EVENT_LBUTTONDOWN:
+            points.append([x, y])
+            # Polygon_point.append(points)
+        elif event == cv2.EVENT_RBUTTONDOWN:
+            points = []
+            # Polygon_point = []
+
     def run(self, url, index):
         self.index = index
 
@@ -63,6 +83,7 @@ class test_video():
         self.hosts = [
             "http://127.0.0.1:9003",
         ]
+        self.coordinate = {None}
 
         # self.jpeg = TurboJPEG()
 
@@ -78,24 +99,53 @@ class test_video():
         print("视频流原始尺寸：width=%d,height=%d" % (width, height))
         print("视频流裁剪尺寸：w=%d,h=%d" % (w, h))
 
+        # 加入区域获取功能
+        cv2.namedWindow(url, cv2.WINDOW_NORMAL)
+        cv2.resizeWindow(url, width, height)
+
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                print("视频流读取失败 url=%s" % str(url))
+                time.sleep(3)
+                cap = cv2.VideoCapture(url)
+
+            temp_frame = frame.copy()
+            if len(points) > 0:
+                cv2.polylines(temp_frame, np.array(
+                    [points]), isClosed=True, color=(0, 255, 0), thickness=2)
+            cv2.imshow(url, temp_frame)
+            cv2.setMouseCallback(url, self.mouse_callback)
+            if cv2.waitKey(1) & 0xff == ord('q'):
+                cap.release()
+                cv2.destroyAllWindows()
+                break
+
         while True:
             r, frame = cap.read()
             if r:
                 # frame = cv2.resize(frame, (w, h), interpolation=cv2.INTER_NEAREST)
                 __state, __detect_num, __detect_data = self.objectDetect(frame)
                 if __state:
+                    if __detect_num == 0:  # 无人
+                        cv2.polylines(frame, np.array(
+                            [points]), isClosed=True, color=(0, 0, 255), thickness=2)
+                        cv2.putText(frame, "Warning, Person is not here", (960, 540),
+                                    cv2.FONT_HERSHEY_SIMPLEX, .5, (0, 0, 255))
+                    else:
+                        for dd in __detect_data:
 
-                    for dd in __detect_data:
-                        score = dd.get("score")
-                        location = dd.get("location")
-                        class_name = dd.get("class_name") + "-" + str(score)
+                            score = dd.get("score")
+                            location = dd.get("location")
+                            class_name = dd.get(
+                                "class_name") + "-" + str(score)
 
-                        x1, y1, x2, y2 = location.get("x1"), location.get(
-                            "y1"), location.get("x2"), location.get("y2")
-                        cv2.rectangle(frame, (x1, y1),
-                                      (x2, y2), (0, 255, 0), 2)
-                        cv2.putText(frame, class_name, (x1, y1 + 20),
-                                    cv2.FONT_HERSHEY_SIMPLEX, .5, (255, 255, 255))
+                            x1, y1, x2, y2 = location.get("x1"), location.get(
+                                "y1"), location.get("x2"), location.get("y2")
+                            cv2.rectangle(frame, (x1, y1),
+                                          (x2, y2), (0, 255, 0), 2)
+                            cv2.putText(frame, class_name, (x1, y1 + 20),
+                                        cv2.FONT_HERSHEY_SIMPLEX, .5, (255, 255, 255))
 
                 cv2.imshow("frame", frame)
                 cv2.waitKey(1)
@@ -126,6 +176,8 @@ if __name__ == '__main__':
     # url = 1 # 本地摄像头
     url = "rtsp://admin:jiankong123@192.168.23.15:554/Streaming/Channels/101"
     # url = 0
+
+    points = []
 
     processes = 1  # 测试的进程数量
 
