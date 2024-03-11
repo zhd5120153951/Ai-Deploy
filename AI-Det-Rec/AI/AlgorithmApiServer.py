@@ -15,6 +15,7 @@ import numpy as np
 import base64
 import json
 import cv2
+import subprocess
 from flask import Flask, request
 from lib.OpenVino_Yolov5_Detector import OpenVinoYoloV5Detector
 # from turbojpeg import TurboJPEG
@@ -82,7 +83,8 @@ def imageObjectDetect():
 
 
 if __name__ == "__main__":
-
+    subprocess.call(
+        "D:\\openvino_toolkit_2023.1.0_x86_64\\setupvars.bat", shell=True)
     parse = argparse.ArgumentParser()
     parse.add_argument("--debug", type=int, default=1,
                        help="whether to turn on debugging mode default:0")
