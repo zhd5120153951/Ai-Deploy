@@ -1,6 +1,6 @@
 '''
 @FileName   :test_AlgorithmApiServer_video.py
-@Description:通过循环请求服务完成视频的推理
+@Description:通过循环请求服务完成视频的推理--人员离岗和人员入侵的交互端
 @Date       :2024/03/05 16:20:57
 @Author     :daito
 @Website    :Https://github.com/zhd5120153951

@@ -1,6 +1,6 @@
 '''
 @FileName   :AlgorithmApiServer.py
-@Description:ai算法Api服务--python版本
+@Description:ai算法Api服务--python版本--可以实现人员入侵和离岗检测
 @Date       :2024/03/05 15:44:10
 @Author     :daito
 @Website    :Https://github.com/zhd5120153951
@@ -17,6 +17,7 @@ import json
 import cv2
 import subprocess
 from flask import Flask, request
+from flask_cors import CORS
 from lib.OpenVino_Yolov5_Detector import OpenVinoYoloV5Detector
 # from turbojpeg import TurboJPEG
 
@@ -24,7 +25,7 @@ from lib.OpenVino_Yolov5_Detector import OpenVinoYoloV5Detector
 
 
 app = Flask(__name__)
-
+CORS(app)  # 处理跨域问题--前端就可以直接访问AI端
 # 提供路由--每次推理一张图--循环推理
 
 
@@ -34,6 +35,7 @@ def imageObjectDetect():
         "code": 0,
         "msg": "unknown error",
     }
+    print("请求成功..........................")
     try:
         params = request.get_json()  # 可以web配置,也可以手动模拟
     except:
@@ -83,8 +85,6 @@ def imageObjectDetect():
 
 
 if __name__ == "__main__":
-    subprocess.call(
-        "D:\\openvino_toolkit_2023.1.0_x86_64\\setupvars.bat", shell=True)
     parse = argparse.ArgumentParser()
     parse.add_argument("--debug", type=int, default=1,
                        help="whether to turn on debugging mode default:0")
