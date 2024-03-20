@@ -84,6 +84,32 @@ def imageObjectDetect():
     return json.dumps(data, ensure_ascii=False)
 
 
+@app.route("/steam/preview", methods=["POST"])
+def streamPreview():
+    # 前端传来地址,这里返回取到的流
+    data = {
+        "code": 0,
+        "msg": "unknown error",
+    }
+    print("请求成功..........................")
+    try:
+        params = request.get_json()  # 可以web配置,也可以手动模拟
+    except:
+        params = request.form
+    rtsp = params.get("rtspurl")
+    if rtsp:
+        # 用多线程的方式--便于关闭后发送消息过来
+        cap = cv2.VideoCapture(rtsp)
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                cap.release()
+                cap = cv2.VideoCapture(rtsp)
+                continue
+            else:
+                pass
+
+
 if __name__ == "__main__":
     parse = argparse.ArgumentParser()
     parse.add_argument("--debug", type=int, default=1,
