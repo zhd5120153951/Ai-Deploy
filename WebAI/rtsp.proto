@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+package rtsp;
+
+
+
+//RTSP发送消息类型
+message RTSPRequest {
+    //rtsp url和拉流间隔
+    string url = 1;
+}
+
+//RTSP返回消息类型
+message VideoFrame {
+    //视频帧数据，已字节数组形式
+    bytes frame = 1;
+}
+
+//RTSP服务端消息类型
+service RTSPStreamingServicer {
+    //接受RTSP请求并返回视频帧
+    rpc StreamVideo (RTSPRequest) returns (VideoFrame);
+}
+
+//定义收发信息类型
+
+message rsMessage {
+    map<string, bytes> param = 1;
+}
+
+service interaction {
+    //调用此函数来传输数据
+    rpc dispatch (rsMessage) returns (rsMessage);
+    //测试通信状态
+    rpc ping (google.protobuf.Empty) returns (google.protobuf.Empty);
+}

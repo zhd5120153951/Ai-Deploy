@@ -2,17 +2,69 @@
 <html lang="en">
 
 <head>
-  <title>目标检测系统</title>
+  <title>缺陷检测系统</title>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <!-- <link rel="stylesheet" href="D:\WEB\static\style.css"> -->
+  <style>
+    #title {
+      text-align: center;
+      color: black;
+      font-size: xx-large;
+      background-color: cadetblue;
+    }
+
+    #imageDisplay {
+      width: 640px;
+      height: 480px;
+      margin-left: 120px;
+      position: relative;
+      /* display: flex; */
+    }
+
+    #button_detect {
+      width: 100px;
+      height: 40px;
+      background-color: skyblue;
+      font-size: larger;
+      margin-left: 900px;
+      margin-top: auto;
+    }
+
+    #button_show {
+      width: 100px;
+      height: 40px;
+      background-color: skyblue;
+      font-size: larger;
+      margin-left: 900px;
+      margin-top: auto;
+    }
+
+    #imageFile {
+      width: 300px;
+      height: 40px;
+      background-color: white;
+      font-size: larger;
+      margin-left: 900px;
+      margin-top: auto;
+    }
+
+    #result_show {
+      height: 480px;
+      width: 640px;
+      margin-left: 10px;
+      position: absolute;
+    }
+  </style>
 </head>
 
 <body>
-  <h2 id="title">目标检测系统</h2>
+  <h2 id="title">缺陷检测系统</h2>
   <br />
   <br />
-  <img id="imageDisplay" width="500" height="500" />
+
+  <img id="imageDisplay" />
   <img id="result_show" src="data:;base64,{{ img_stream }}">
+
   <br />
   <form method="POST" enctype="multipart/form-data">
     <br />
@@ -46,52 +98,5 @@
   </a>
 
 </body>
-<style>
-  #title {
-    text-align: center;
-    color: black;
-    font-size: xx-large;
-    background-color: cadetblue;
-  }
-
-  #imageDisplay {
-    margin-left: 350px;
-    position: relative;
-  }
-
-  #button_detect {
-    width: 100px;
-    height: 40px;
-    background-color: skyblue;
-    font-size: larger;
-    margin-left: 900px;
-    margin-top: auto;
-  }
-
-  #button_show {
-    width: 100px;
-    height: 40px;
-    background-color: skyblue;
-    font-size: larger;
-    margin-left: 900px;
-    margin-top: auto;
-  }
-
-  #imageFile {
-    width: 300px;
-    height: 40px;
-    background-color: white;
-    font-size: larger;
-    margin-left: 900px;
-    margin-top: auto;
-  }
-
-  #result_show {
-    height: 500px;
-    width: 500px;
-    margin-left: 200px;
-
-  }
-</style>
 
 </html>

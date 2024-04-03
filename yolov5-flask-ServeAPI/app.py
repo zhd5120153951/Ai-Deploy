@@ -117,5 +117,5 @@ def parse_opt():
 # 启动Flask应用
 if __name__ == '__main__':
     app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
     # app.run(host="http://8.137.53.211/", port=8080)
