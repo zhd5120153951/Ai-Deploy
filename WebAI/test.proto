@@ -1,0 +1,26 @@
+// grpc 版本
+syntax = "proto3";   
+package rpc;
+
+//定义接口
+service RPC {
+//相当于定义接口方法 
+    rpc sendConfFile(Content) returns (Status) {}
+    rpc dispatch()
+}
+
+//相当于定义类属性,此属性用于接受文本
+message  Content {
+  string  text = 1;
+}
+message rtspRequest{
+    string url = 1;
+}
+//此属性用于return 结果状态吗
+message Status {
+    int64 code = 1;
+}
+
+message rtspResponse{
+    map<string,bytes> param = 1;
+}
