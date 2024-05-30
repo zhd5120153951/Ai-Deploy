@@ -33,7 +33,7 @@ classes = [
 ]
 
 
-class OpenVinoSSDLiteDetector():
+class OpenVinoSSDLiteDetector(object):
     def __init__(self, IN_conf):
 
         # openvino >= 2022.1

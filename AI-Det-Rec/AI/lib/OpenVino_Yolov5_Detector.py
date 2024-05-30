@@ -32,7 +32,7 @@ classes = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
 # 推理类
 
 
-class OpenVinoYoloV5Detector():
+class OpenVinoYoloV5Detector(object):
 
     def __init__(self, IN_conf):
 

@@ -16,8 +16,10 @@ import os
 import sys
 import base64
 import time
+# openvino框架
 from lib.OpenVino_Yolov5_Detector import OpenVinoYoloV5Detector
 from lib.OpenVino_SSDLite_Detector import OpenVinoSSDLiteDetector
+# onnxruntime框架
 
 print("AlgorithmLocalServer.py")
 
@@ -80,6 +82,13 @@ class Algorithm():
         if not os.path.exists(weight_file):
             error = "weight_file=%snot found" % weight_file
             raise Exception(error)
+
+
+class Algorithm_fire(object):
+    '''火焰检测算法'''
+
+    def __init__(self, weight_path, param) -> None:
+        pass
 
 
 if __name__ == "__main__":
