@@ -1,0 +1,45 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# pycharm的配置文件.idea
+.idea/*
+
+# vscode run coder插件生成的__pycache__
+__pycache__/
+*.pyc
+
+# vs 2022的.sln
+*.sln
+
+# .vscode
+.vscode/
