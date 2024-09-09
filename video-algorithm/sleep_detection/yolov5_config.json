@@ -1,0 +1,23 @@
+{
+	"source": "streams.txt",
+	"weights": "weights/yolov5s.pt",
+	"device": "cpu",
+	"dnn": false,
+	"data": "data/coco128.yaml",
+	"imgsz": 640,
+	"stride": 32,
+	"conf_thresh": 0.5,
+	"iou_thresh": 0.45,
+	"augment": false,
+	"agnostic_nms": false,
+	"max_det": 300,
+	"classes": null,
+	"visualize": false,
+	"half": false,
+	"vid_stride": 1,
+	"transforms": null,
+	"hide_labels": false,
+	"hide_conf": false,
+	"person_iou_thresh": 0.5,
+	"sleep_thresh": 10
+}

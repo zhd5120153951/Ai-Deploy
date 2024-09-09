@@ -1,0 +1,45 @@
+[
+    {
+        "deviceId": "longruan-ZHD",
+        "k8sName": "zhd-k8sName",
+        "interval": "3",
+        "args": {
+            "model_args": {
+                "conf_thres_person": "0.45",
+                "iou_thres_person": "0.25",
+                "sleep_interval_time": "1",
+                "cal_ious": "0.75",
+                "sames": "0.75"
+            },
+            "tools": {
+                "detect_area_flag": {
+                    "area_switch": "False",
+                    "polygon": {
+                        "h1": "510",
+                        "w1": "379",
+                        "h2": "237",
+                        "w2": "998",
+                        "h3": "529",
+                        "w3": "1780",
+                        "h4": "1075",
+                        "w4": "1575",
+                        "h5": "1075",
+                        "w5": "759"
+                    }
+                },
+                "keyframe": {
+                    "key_switch": "True",
+                    "degree^": "1.00",
+                    "degree_": "0.10"
+                }
+            },
+            "common_args": {
+                "tensorrt": "False",
+                "polyline": "False",
+                "line_thickness": "1",
+                "hide_labels": "False",
+                "hide_conf": "False"
+            }
+        }
+    }
+]

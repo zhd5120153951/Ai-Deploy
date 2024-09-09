@@ -1,0 +1,13 @@
+[
+    {
+    "deviceId": "222222222222222222",
+    "k8sName": "conv-office-187f54",
+    "interval": "3",
+    "args": {
+      "dist_threshold": "10",
+      "direct_threshold": "5",
+      "frame_threshold": "10",
+      "frame_pick": "1"
+    }
+  }
+]

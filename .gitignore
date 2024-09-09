@@ -43,3 +43,11 @@ __pycache__/
 
 # .vscode
 .vscode/
+
+*.jpg
+*.png
+*.jpeg
+*.mp4
+*.pt
+*.onnx
+*.engine

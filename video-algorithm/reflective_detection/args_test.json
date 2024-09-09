@@ -1,0 +1,56 @@
+[{
+		"deviceId": "222222222222222222",
+		"k8sName": "jjyconv-dev28-d8f9b8",
+		"interval": "3",
+		"args": {
+			"model_args": {
+				"conf_thres_person": "0.45",
+				"conf_thres_reflective": "0.45",
+				"iou_thres_person": "0.25",
+				"iou_thres_reflective": "0.25"
+			},
+			"tools": {
+				"detect_area_flag": {
+					"area_switch": "False",
+					"polygon": {
+						"h1": "536",
+						"w1": "27",
+						"h2": "401",
+						"w2": "630",
+						"h3": "476",
+						"w3": "1655",
+						"h4": "749",
+						"w4": "1876",
+						"h5": "1058",
+						"w5": "1846",
+						"h6": "1058",
+						"w6": "10"
+					}
+				},
+					"keyframe": {
+						"key_switch": "True",
+						"degree^": "1.00",
+						"degree_": "0.10"
+					},
+					"Target_filter": {
+						"filter_switch": "False",
+						"min_person_xyxy": "0",
+						"min_head_xyxy": "0",
+						"max_person_xyxy": "0",
+						"max_head_xyxy": "0"
+					},
+					"judge": {
+						"p_h_iou_min": "0.05",
+						"p_h_iou_max": "0.20",
+						"p_u_iou": "0.15"
+					}
+				},
+			"common_args": {
+				"tensorrt": "False",
+				"polyline": "False",
+				"line_thickness": "1",
+				"hide_labels": "False",
+				"hide_conf": "False"
+				}
+			}
+		}]

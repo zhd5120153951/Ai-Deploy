@@ -1,0 +1,53 @@
+[
+	{
+		"deviceId": "222222222222222222",
+		"k8sName": "jjyconv-dev28-d8f9b8",
+		"interval": "3",
+		"args": {
+			"model_args": {
+				"conf_thres": "0.55",
+				"iou_thres": "0.25"
+			},
+			"tools": {
+				"detect_area_flag": {
+					"area_switch": "True",
+					"polygon": {
+						"h1": "442",
+						"w1": "0",
+						"h2": "442",
+						"w2": "150",
+						"h3": "328",
+						"w3": "533",
+						"h4": "354",
+						"w4": "1077",
+						"h5": "717",
+						"w5": "971",
+						"h6": "717",
+						"w6": "0"
+					}
+				},
+				"keyframe": {
+					"key_switch": "True",
+					"degree^": "0.95",
+					"degree_": "0.10"
+				},
+				"Target_filter": {
+					"filter_switch": "False",
+					"min_head_helmet_xyxy": "0",
+					"max_head_helmet_xyxy": "0"
+				},
+				"helmet_head_verify": {
+					"switch": "True",
+					"iou_h_h": "0.90"
+				}
+			},
+			"common_args": {
+				"tensorrt": "False",
+				"polyline": "False",
+				"line_thickness": "1",
+				"hide_labels": "False",
+				"hide_conf": "False"
+			}
+		}
+	}
+]

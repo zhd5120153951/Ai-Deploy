@@ -1,0 +1,29 @@
+[{
+	"deviceId": "222222222222222222",
+	"k8sName": "jjyconv-dev28-d8f9b8",
+	"interval": "3",
+	"args": {
+		"tools": {
+			"polygon": {
+				"h1": "400",
+				"w1": "900",
+				"h2": "400",
+				"w2": "1200",
+				"h3": "600",
+				"w3": "900",
+				"h4": "600",
+				"w4": "1200"
+			},
+			"keyframe": {
+				"key_switch": "True",
+				"degree^": "1.00",
+				"degree_": "0.10"
+			}
+		},
+		"common_args": {
+			"polyline": "True",
+			"line_thickness": "3",
+			"same": "0.70"
+		}
+	}
+}]

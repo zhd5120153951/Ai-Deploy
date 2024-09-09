@@ -1,0 +1,40 @@
+第一帧：
+people{xyxy:flag} / 记录人的坐标框，每一个坐标框标记一个flag
+people_bbox{xyxy:ratios} / 记录每个框的的坐标和宽高比
+people_frame{xyxy:frame} / 记录每个坐标框的坐标和持续的帧数
+
+正常帧（及大于等于第二帧）：
+通过IOU寻找当前帧和上一帧中对应的人
+if 有对应的人
+    记录 new_person
+    if 某一坐标框xyxy比例小于阈值：
+        if 持续帧数大于阈值：
+            判断是否检测到头
+                if 有头：
+                    计算头和人身的iou和角度：
+                    if 符合阈值
+                        检测摔倒行为 / 根据坐标框宽高比和头身角度判断 flag_falldown
+                    else:
+                        此坐标框持续帧数为0 people_frame{xyxy:0}
+                else： / 无头
+                    检测到摔倒行为 / 只根据坐标框的宽高比进行判断
+        else:
+            people_frame{xyxy:frame+=1} / 帧数加1
+    else:
+        people_frame{xyxy:frame=0} / 重置坐标框当前帧数为0
+
+if 与基础框中没有对应的人，新进来的人
+    person_new[xyxy]=0
+    person_newbbx[xyxy]=bbx_r
+else: / 有对应的人
+    更新坐标和比例。记录当前帧的坐标框和比例。
+
+
+删除后续不出现的坐标框信息
+更新新出来的坐标框信息
+
+
+视频流推理的模型
+推理图片 - while True - 视频流处理的模型再单独写一个处理的流程，与间隔获取图片的模型处理流程分开。
+
+
